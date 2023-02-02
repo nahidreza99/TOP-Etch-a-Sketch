@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+:root{
+    --color: #000000;
+}
+
+.fill{
+    background-color: var(--color);
+}
+
+main>h1{
+    text-align: center;
+    padding-top: 50px;
+    font-size: 3rem;
+}
+
+.board{
+    height: 650px;
+    width: 650px;
+    border: 1px solid black;
+    background-color: black;
+    margin: 50px auto;
+    display: grid;
+}
+
+.gridline{
+    column-gap: 1px;
+    row-gap: 1px;
+}
+
+.default{
+    background-color: rgb(255, 255, 255);
+}
+
+.block{
+    user-select: none;
+}
+
+footer{
+
+    padding: 25px 0;
+    width: 100%;
+    text-align: center;
+}
