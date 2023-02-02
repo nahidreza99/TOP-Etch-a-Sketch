@@ -6,10 +6,22 @@ let gridSize = 16;
 const psRoot = document.querySelector(":root");
 const board = document.getElementById("board");
 //const block = document.getElementsByClassName("block");
+const colorPicker = document.getElementById("color-picker");
 
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
+
+var penColor= '#BA7CC5';
+colorPicker.value = penColor;
+
+colorPicker.onchange = function(){
+    changePenColor(this.value);
+}
+
+function changePenColor(color){
+    penColor = color;
+}
 
 for(let i=0; i<gridSize; i++){
     for(let j=0; j<gridSize; j++){
@@ -34,7 +46,7 @@ function fillBlock(e){
         return;
     }
     else{
-        e.target.classList.add("fill");
+        e.target.style.setProperty('background-color', penColor);
         e.target.classList.remove("default");
     }
         
