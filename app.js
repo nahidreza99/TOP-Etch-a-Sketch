@@ -7,6 +7,7 @@ const psRoot = document.querySelector(":root");
 const board = document.getElementById("board");
 //const block = document.getElementsByClassName("block");
 const colorPicker = document.getElementById("color-picker");
+const colorPicker_board = document.getElementById("board-color");
 
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
@@ -15,8 +16,20 @@ document.body.onmouseup = () => (mouseDown = false);
 var penColor= '#BA7CC5';
 colorPicker.value = penColor;
 
+var boardColor = '#ffffff';
+colorPicker_board.value = boardColor;
+
+
 colorPicker.onchange = function(){
     changePenColor(this.value);
+}
+
+colorPicker_board.onchange = function(){
+    changeBoardColor(this.value);
+}
+
+function changeBoardColor(color){
+    psRoot.style.setProperty('--background', color);
 }
 
 function changePenColor(color){

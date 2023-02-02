@@ -6,6 +6,7 @@
 
 :root{
     --color: #000000;
+    --background: #ffffff;
 }
 
 .fill{
@@ -33,7 +34,7 @@ main>h1{
 }
 
 .default{
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background);
 }
 
 .block{
