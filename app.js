@@ -5,13 +5,18 @@ let gridSize = 16;
 
 const psRoot = document.querySelector(":root");
 const board = document.getElementById("board");
-//const block = document.getElementsByClassName("block");
 const colorPicker = document.getElementById("color-picker");
 const colorPicker_board = document.getElementById("board-color");
+const paint = document.getElementById("paint");
+const solid = document.getElementById("solid");
+const rainbow = document.getElementById("rainbow");
+
 
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
+
+
 
 var penColor= '#BA7CC5';
 colorPicker.value = penColor;
@@ -26,6 +31,24 @@ colorPicker.onchange = function(){
 
 colorPicker_board.onchange = function(){
     changeBoardColor(this.value);
+}
+
+var brush = "";
+solid.onclick = function(){
+    brush = "solid";
+    changeBrush();
+}
+
+rainbow.onclick = function(){
+    brush = "rainbow";
+    changeBrush();
+}
+
+
+
+function changeBrush(){
+    solid.classList.toggle('selected');
+    rainbow.classList.toggle('selected');
 }
 
 function changeBoardColor(color){
@@ -53,14 +76,29 @@ board.style.gridTemplateColumns = gridColumn;
 
 psRoot.style.setProperty('--color', '#BA7CC5');
 
+function generateColor() {
+    let r = Math.floor((Math.random() * 255));
+    let g = Math.floor((Math.random() * 255));
+    let b = Math.floor((Math.random() * 255));
+    return "rgb("+r+", "+g+", "+b+")";
+}
 
 function fillBlock(e){
     if(e.type === 'mouseover' && !mouseDown){
         return;
     }
-    else{
+
+    if(brush==="solid"){
         e.target.style.setProperty('background-color', penColor);
         e.target.classList.remove("default");
     }
-        
+    else if(brush==="rainbow"){
+        let color = generateColor();
+        changePenColor(color);
+        e.target.style.setProperty('background-color', penColor);
+        e.target.classList.remove("default");
+    }
+    else{
+        e.target.classList.add('default');
+    }
 }

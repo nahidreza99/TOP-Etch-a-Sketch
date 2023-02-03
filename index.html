@@ -11,13 +11,17 @@
     <main>
         <h1>Etch-a-Sketch</h1>
         <div class="container">
-            <div>
+            <div class="pref">
                 <label for="color-picker">
                     <input type="color" name="color" id="color-picker"> Pen Color
                 </label>
                 <label for="board-color">
                     <input type="color" name="color" id="board-color"> Board Color
                 </label>
+                <div id="paint" class="paint">
+                    <div class="selected" id="solid">Solid</div>
+                    <div id="rainbow">Rainbow</div>
+                </div>
             </div>
             <div id="board" class="board gridline">
                 
