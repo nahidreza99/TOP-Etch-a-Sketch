@@ -12,20 +12,17 @@ const solid = document.getElementById("solid");
 const rainbow = document.getElementById("rainbow");
 const blocks = document.getElementsByClassName("block");
 const clear = document.getElementById("clear");
-
+const erase = document.getElementById("erase");
 
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
-
-
 
 var penColor= '#000000';
 colorPicker.value = penColor;
 
 var boardColor = '#ffffff';
 colorPicker_board.value = boardColor;
-
 
 colorPicker.onchange = function(){
     changePenColor(this.value);
@@ -38,14 +35,30 @@ colorPicker_board.onchange = function(){
 var brush = "solid";
 solid.onclick = function(){
     brush = "solid";
-    changeBrush();
+    if(!solid.classList.contains('selected')){
+        solid.classList.add('selected');
+        rainbow.classList.remove('selected');
+        erase.classList.remove('selected');
+    }
 }
 
 rainbow.onclick = function(){
     brush = "rainbow";
-    changeBrush();
+    if(!rainbow.classList.contains('selected')){
+        rainbow.classList.add('selected');
+        solid.classList.remove('selected');
+        erase.classList.remove('selected');
+    }
 }
 
+erase.onclick = function(){
+    brush = "erase";
+    if(!erase.classList.contains('selected')){
+        erase.classList.toggle('selected');
+        solid.classList.remove('selected');
+        rainbow.classList.remove('selected');
+    }
+}
 
 clear.onclick = function(){
     for(let i=0;i<blocks.length;i++){
@@ -61,16 +74,11 @@ function clearBlock(b){
 }
 
 function changeBrush(){
-    solid.classList.toggle('selected');
-    rainbow.classList.toggle('selected');
 }
 
 function changeBoardColor(color){
     psRoot.style.setProperty('--background', color);
 }
-
-
-
 
 for(let i=0; i<gridSize; i++){
     for(let j=0; j<gridSize; j++){
@@ -91,7 +99,6 @@ function changePenColor(color){
     penColor = color;
     colorPicker.value = color;
 }
-
 
 function valueToHex(c) {
     var hex = c.toString(16);
@@ -127,7 +134,9 @@ function fillBlock(e){
         e.target.style.setProperty('background-color', penColor);
         e.target.classList.remove("default");
     }
-    else{
-        e.target.classList.add('default');
+    else if(brush==="erase"){
+        if(!e.target.classList.contains('default')){
+            clearBlock(e.target);
+        }
     }
 }
