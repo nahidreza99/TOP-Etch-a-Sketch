@@ -10,6 +10,8 @@ const colorPicker_board = document.getElementById("board-color");
 const paint = document.getElementById("paint");
 const solid = document.getElementById("solid");
 const rainbow = document.getElementById("rainbow");
+const blocks = document.getElementsByClassName("block");
+const clear = document.getElementById("clear");
 
 
 let mouseDown = false;
@@ -18,7 +20,7 @@ document.body.onmouseup = () => (mouseDown = false);
 
 
 
-var penColor= '#BA7CC5';
+var penColor= '#000000';
 colorPicker.value = penColor;
 
 var boardColor = '#ffffff';
@@ -45,6 +47,18 @@ rainbow.onclick = function(){
 }
 
 
+clear.onclick = function(){
+    for(let i=0;i<blocks.length;i++){
+        if(!blocks[i].classList.contains('default')){
+            clearBlock(blocks[i]);
+        }
+    }
+}
+
+function clearBlock(b){
+    b.style.removeProperty('background-color');
+    b.classList.add('default');
+}
 
 function changeBrush(){
     solid.classList.toggle('selected');
@@ -73,8 +87,6 @@ for(let i=0; i<gridSize; i++){
 
 board.style.gridTemplateColumns = gridColumn;
 
-psRoot.style.setProperty('--color', '#BA7CC5');
-
 function changePenColor(color){
     penColor = color;
     colorPicker.value = color;
@@ -82,28 +94,21 @@ function changePenColor(color){
 
 
 function valueToHex(c) {
-
     var hex = c.toString(16);
-    console.log(c+": "+hex);
     if(hex.length < 2){
         hex = "0"+hex;
     }
     return hex;
-  
 }
 
 function rgbToHex(r, g, b) {
-
     return(valueToHex(r) + valueToHex(g) + valueToHex(b));
-  
 }
 
 function generateColor() {
     let r = Math.floor((Math.random() * 255));
     let g = Math.floor((Math.random() * 255));
     let b = Math.floor((Math.random() * 255));
-
-
     return "#"+rgbToHex(r,g,b);
 }
 

@@ -60,11 +60,11 @@ main>h1{
 .paint{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    cursor: pointer;
 }
 
-.paint>div{
+.pref div{
     text-align: center;
+    cursor: pointer;
 }
 
 .selected{
