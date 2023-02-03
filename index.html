@@ -12,6 +12,7 @@
         <h1>Etch-a-Sketch</h1>
         <div class="container">
             <div class="pref">
+                Preferences
                 <label for="color-picker">
                     <input type="color" name="color" id="color-picker"> Pen Color
                 </label>
@@ -26,8 +27,13 @@
                 <div id="clear">
                     Clear
                 </div>
+                <div id="gridline">Gridlines</div>
+                <label for="grid-size">Size: 
+                    <input type="range" min="6" max="64" value="16" class="slider" id="grid-size">
+                    <span id="size-label"></span>
+                </label>
             </div>
-            <div id="board" class="board gridline">
+            <div id="board" class="board">
                 
             </div>
         </div>

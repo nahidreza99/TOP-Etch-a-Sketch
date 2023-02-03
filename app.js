@@ -1,8 +1,3 @@
-let blockNode = "";
-let gridColumn = "";
-let gridSize = 16;
-
-
 const psRoot = document.querySelector(":root");
 const board = document.getElementById("board");
 const colorPicker = document.getElementById("color-picker");
@@ -13,6 +8,12 @@ const rainbow = document.getElementById("rainbow");
 const blocks = document.getElementsByClassName("block");
 const clear = document.getElementById("clear");
 const erase = document.getElementById("erase");
+const slider = document.getElementById("grid-size");
+const slideLabel = document.getElementById("size-label");
+const gridline = document.getElementById("gridline");
+
+let gridColumn = "";
+var create = createBoard(16);
 
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
@@ -61,6 +62,38 @@ erase.onclick = function(){
 }
 
 clear.onclick = function(){
+    clearAll();
+}
+
+gridline.onclick = function(){
+    board.classList.toggle('gridline')
+    if(board.classList.contains('gridline')){
+        gridline.classList.add('selected');
+    }
+    else{
+        gridline.classList.remove('selected');
+    }
+};
+
+slideLabel.innerHTML=16;
+slider.oninput = (e)=>(changeBoard(e.target.value));
+
+function changeBoard(value){
+    updateSize(value);
+    deleteBoard();
+    createBoard(value);
+}
+
+function updateSize(value){
+    slideLabel.innerHTML = value;
+}
+
+function deleteBoard(){
+    board.innerHTML="";
+    gridColumn = "";
+}
+
+function clearAll(){
     for(let i=0;i<blocks.length;i++){
         if(!blocks[i].classList.contains('default')){
             clearBlock(blocks[i]);
@@ -73,27 +106,25 @@ function clearBlock(b){
     b.classList.add('default');
 }
 
-function changeBrush(){
-}
-
 function changeBoardColor(color){
     psRoot.style.setProperty('--background', color);
 }
 
-for(let i=0; i<gridSize; i++){
-    for(let j=0; j<gridSize; j++){
-        const block = document.createElement('div');
-        block.classList.add('block');
-        block.classList.add('default');
-        block.addEventListener('mousedown',fillBlock);
-        block.addEventListener('mouseover', fillBlock);
-
-        board.appendChild(block);
+function createBoard(n){
+    for(let i=0; i<n; i++){
+        for(let j=0; j<n; j++){
+            const block = document.createElement('div');
+            block.classList.add('block');
+            block.classList.add('default');
+            block.addEventListener('mousedown',fillBlock);
+            block.addEventListener('mouseover', fillBlock);
+    
+            board.appendChild(block);
+        }
+        gridColumn += ' 1fr';
     }
-    gridColumn += ' 1fr';
+    board.style.gridTemplateColumns = gridColumn;
 }
-
-board.style.gridTemplateColumns = gridColumn;
 
 function changePenColor(color){
     penColor = color;
