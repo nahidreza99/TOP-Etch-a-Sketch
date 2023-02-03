@@ -33,7 +33,7 @@ colorPicker_board.onchange = function(){
     changeBoardColor(this.value);
 }
 
-var brush = "";
+var brush = "solid";
 solid.onclick = function(){
     brush = "solid";
     changeBrush();
@@ -55,9 +55,8 @@ function changeBoardColor(color){
     psRoot.style.setProperty('--background', color);
 }
 
-function changePenColor(color){
-    penColor = color;
-}
+
+
 
 for(let i=0; i<gridSize; i++){
     for(let j=0; j<gridSize; j++){
@@ -76,11 +75,36 @@ board.style.gridTemplateColumns = gridColumn;
 
 psRoot.style.setProperty('--color', '#BA7CC5');
 
+function changePenColor(color){
+    penColor = color;
+    colorPicker.value = color;
+}
+
+
+function valueToHex(c) {
+
+    var hex = c.toString(16);
+    console.log(c+": "+hex);
+    if(hex.length < 2){
+        hex = "0"+hex;
+    }
+    return hex;
+  
+}
+
+function rgbToHex(r, g, b) {
+
+    return(valueToHex(r) + valueToHex(g) + valueToHex(b));
+  
+}
+
 function generateColor() {
     let r = Math.floor((Math.random() * 255));
     let g = Math.floor((Math.random() * 255));
     let b = Math.floor((Math.random() * 255));
-    return "rgb("+r+", "+g+", "+b+")";
+
+
+    return "#"+rgbToHex(r,g,b);
 }
 
 function fillBlock(e){
